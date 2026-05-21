@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DataGuard</title>
+</head>
+
+<body>
+    <h1>DataGuard Demo</h1>
+
+    <textarea id="input" rows="10" cols="60"></textarea>
+    <br><br>
+
+    <button onclick="protect()">Protect</button>
+
+    <h3>Result:</h3>
+    <pre id="output"></pre>
+
+    <script>
+        async function protect() {
+            const text = document.getElementById("input").value;
+
+            const response = await fetch("/dataguard/protect", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text })
+            });
+
+            const data = await response.json();
+
+            document.getElementById("output").innerText = data.protected;
+        }
+    </script>
+</body>
+
+</html>
